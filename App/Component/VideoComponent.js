@@ -1,10 +1,11 @@
 import React, {useContext, useEffect, useRef} from 'react';
-import {View, StyleSheet} from 'react-native';
-import Video from 'react-native-video';
+import {StyleSheet, View} from 'react-native';
+
 import {AppContext} from '../Context';
 import CommonStyle from '../Theme/CommonStyle';
-import {width} from '../Utils/Constant';
+import Video from 'react-native-video';
 import {VolumeButton} from './AppButton';
+import {width} from '../Utils/Constant';
 
 const styles = StyleSheet.create({
   videoView: {
@@ -39,7 +40,9 @@ const VideoComponent = ({post, isVisible, isNext}) => {
       <Video
         ref={videoRef}
         fullscreenAutorotate={true}
-        source={url}
+        source={{
+          uri: 'https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.xhP3ExfcX8ON.m3u8',
+        }}
         autoPlay={true}
         repeat={true}
         onError={videoError}
@@ -49,6 +52,9 @@ const VideoComponent = ({post, isVisible, isNext}) => {
         playInBackground={false}
         paused={!isVisible}
         ignoreSilentSwitch={'ignore'}
+        onTimedMetadata={a => {
+          console.log(a);
+        }}
       />
       <VolumeButton />
     </View>
